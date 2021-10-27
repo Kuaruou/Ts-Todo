@@ -1,82 +1,45 @@
 <template>
-  <div class="app">
-    <!-- <p>{{ name }} - {{ age }}</p> -->
-    <!-- <button @click="changeName('zelda')">change name</button>
-    <button @click="changeAge('24')">change age</button> -->
+  <div class="container mx-auto mt-4">
+    <h1 class="text-3xl text-center p-2 font-bold">
+      Vue 3 Todo App with TS and Vuex 4
+    </h1>
 
-    <!-- <p>{{ name }} - {{ age }}</p> -->
-    <header>
-      <div class="order">
-        <button @click="handleClick('title')">order by title</button>
-        <button @click="handleClick('salary')">order by salary</button>
-        <button @click="handleClick('location')">order by location</button>
-      </div>
-    </header>
-    <JobList :jobs="jobs" :order="order" />
+    <div v-if="loading">
+      <h3 class="text-center mt-4">
+        Loading...
+      </h3>
+    </div>
+    <div v-else>
+      <p class="text-center mt-2">
+        {{ completedCount }} of {{ totalCount }} completed.
+      </p>
+      <NewItem />
+      <TodoList />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive, toRefs } from 'vue';
-import JobList from './components/JobList.vue'
-import Job from './types/Job'
-import OrderTerm from './types/OrderTerm'
-
+import { defineComponent, computed, onMounted } from 'vue';
+import TodoList from './components/TodoList.vue'
+import NewItem from './components/NewItem.vue'
+import { useStore } from './store'
+import { ActionTypes } from './store/actions'
 
 export default defineComponent({
-  name: 'App',
-  components: {
-    JobList
-  },
+  components: { TodoList, NewItem },
   setup() {
-    // const state = reactive({
-    //   name: 'Link',
-    //   age: 25 as string | number
-    // })
+    const store = useStore()
+    
+    const loading = computed(() => store.state.loading)
+    onMounted(() => store.dispatch(ActionTypes.GetTodoItems))
 
-    // state.name = 999
-    // state.age = '55'
+    const completedCount = computed(() => store.getters.completedCount)
+    const totalCount = computed(() => store.getters.totalCount)
 
-    // return { ...toRefs(state)}
-
-    // const name = ref('link')
-    // const age = ref<number | string>(25)
-
-    // return {name, age}
-
-    const jobs = ref<Job[]>([
-      { title: 'farm worker', location: 'lon ranch', salary: 25000, id: '1'},
-      { title: 'quarryman', location: 'death mountain', salary: 30000, id: '2'},
-      { title: 'lawyer', location: 'wall street', salary: 40000, id: '3'},
-      { title: 'fisherman', location: 'jon harbor', salary: 40000, id: '4'},
-      { title: 'prison guard', location: 'harrison prison', salary: 45000, id: '5'}
-    ])
-    const order = ref<OrderTerm>('title')
-
-    const handleClick = (term: OrderTerm) => {
-      order.value = term
-    }
-
-    return { jobs, handleClick, order }
-  },
-  // data() {
-  //   return {
-  //     name: 'henry',
-  //     age: 25 as number | string
-  //   }
-  // },
-  methods: {
-    // changeName(name: string) {
-    //   this.name = name
-    //   return name
-    // },
-
-    // changeAge(age: string | number) {
-    //   this.age = age
-    //   return age
-    // }
+    return { loading, completedCount,  totalCount }
   }
-});
+})
 </script>
 
 <style>
