@@ -4,7 +4,7 @@ import {
   CommitOptions,
   DispatchOptions,
   createLogger
-} from 'Vuex'
+} from 'vuex'
 
 import { State, state } from './state'
 import { Mutations, mutations } from './mutations'
@@ -33,7 +33,7 @@ export type Store = Omit<
     options?: CommitOptions
   ): ReturnType<Mutations[K]>
 } & {
-  dispatch<K extends keyof Actions(
+  dispatch<K extends keyof Actions>(
     key: K,
     payload?: Parameters<Actions[K]>[1],
     options?: DispatchOptions

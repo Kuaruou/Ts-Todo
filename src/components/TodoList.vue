@@ -9,7 +9,7 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 import { useStore } from '@/store'
-import { TodoItem } from './TodoItem.vue'
+import TodoItem from './TodoItem.vue'
 
 export default defineComponent({
   components: { TodoItem },

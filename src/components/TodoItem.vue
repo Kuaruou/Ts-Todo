@@ -34,7 +34,7 @@ export default defineComponent({
     const store = useStore()
 
     const toggleCompletion = () => {
-      store.commit(MutationType.CompltedItem, {
+      store.commit(MutationType.CompleteItem, {
         id: props.id,
         completed: !props.completed
       })
