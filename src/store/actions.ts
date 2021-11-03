@@ -29,7 +29,7 @@ export const actions: ActionTree<State, State> & Actions = {
     commit(MutationType.SetItems, [
       {
         id: 1,
-        text: 'Create awesome Vue 3 with Vuex 4',
+        text: 'Clean up the room',
         completed: false
       }
     ])

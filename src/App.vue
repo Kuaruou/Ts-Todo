@@ -60,5 +60,18 @@ export default defineComponent({
     border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
-  } 
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .flex-grow {
+    flex-grow: 1;
+  }
+
+  .flex-shrink-0 {
+    flex-shrink: 0;
+  }
+  
 </style>
