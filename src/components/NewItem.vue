@@ -1,12 +1,12 @@
 <template>
   <form class="my-4" @submit.prevent="createTask">
     <div class="mx-auto flex items-center bg-white p-2 rounded-md shadow-md">
-      <div class="flex-grow m-1 m-3">
+      <div class="flex-grow m-1 ml-3">
         <input
           v-model="text"
           class="w-full focus:outline-none"
           type="text"
-          placeholder="whate task do you need to complete"
+          placeholder="your task"
         />
       </div>
       <div class="flex-shrink-0">

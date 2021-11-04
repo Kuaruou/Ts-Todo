@@ -9,7 +9,7 @@
         Loading...
       </h3>
     </div>
-    <div v-else>
+    <div v-else class="w-4/6 mx-auto">
       <p class="text-center mt-2">
         {{ completedCount }} of {{ totalCount }} completed.
       </p>
@@ -43,6 +43,10 @@ export default defineComponent({
 </script>
 
 <style>
+  body {
+    background-color: lightblue;
+  }
+
   header {
     text-align: center;
   }
@@ -72,6 +76,10 @@ export default defineComponent({
 
   .flex-shrink-0 {
     flex-shrink: 0;
+  }
+
+  .container {
+    width: 70%;
   }
   
 </style>
