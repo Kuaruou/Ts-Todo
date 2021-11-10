@@ -11,7 +11,7 @@
 1. shims-vue.d.ts檔案是Ambient Declarations(外部模組定義)，給專案內的vue檔案做模組宣告，讓編輯器能辨識且使vue框架等函式庫的功能能融入TypeScript。
 
 *Vuex
-1. State: 先定義TodoItem型別裡面id, text 和 completed 屬性的基本型別，再定義State型別，裡面的items為TodoItem型別的陣列，items的功能為儲存每個待辦事項的內容，最後宣告state的原始狀態。
+1. State: 先定義TodoItem型別裡面id, text 和 completed 屬性的基本型別，再定義State型別，裡面items的功能為儲存每個待辦事項的內容，型別為TodoItem型別的陣列。最後宣告state的原始狀態，loading為false，items為空陣列。
 
 ```javascript
 export type TodoItem = {
