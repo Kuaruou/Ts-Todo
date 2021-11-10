@@ -1,6 +1,5 @@
-# Ts-Vuex-Todo
+# Ts-Vuex-Todo(整理中)
 
-*整理中
 *簡略說明
 
 1. 使用Vue-Cli建立專案，用TypeScript和Vuex來撰寫todo list app。
