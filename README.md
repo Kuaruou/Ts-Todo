@@ -30,6 +30,17 @@ export const state: State = {
 }
 ```
 
+2. Mutation: 先用enum列舉且儲存MutationType裡所有的mutation。
+
+```javascript
+export enum MutationType {
+  CreateItem = 'CREATE_ITEM',
+  SetItems = 'SET_ITEMS',
+  CompleteItem = 'COMPLETE_ITEM',
+  SetLoading = 'SET_LOADING'
+}
+```
+
 ## Project setup
 ```
 npm install
