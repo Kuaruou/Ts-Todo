@@ -110,6 +110,24 @@ export const actions: ActionTree<State, State> & Actions = {
   }
 }
 ```
+
+4. Gettters: 我們設定兩個getters，completedCount和 totalCount，讓我們可以得知目前已經完成的任務數量和全部的任務數量。
+  
+```javascript
+export type Getters = {
+  completedCount(state: State): number
+  totalCount(state: State): number
+}
+
+export const getters: GetterTree<State, State> & Getters = {
+  completedCount(state) {
+    return state.items.filter(i => i.completed).length
+  },
+  totalCount(state) {
+    return state.items.length
+  }
+}
+```
   
 ## Project setup
 ```
