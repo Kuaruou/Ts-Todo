@@ -51,7 +51,7 @@ export type Mutations = {
 }
 ```
 
-MutationTree是vuex內建的通用型別，通用型別在定義宣告時不預先指定具體的型別，等到執行的時候才確認型別。在此處mutations以MutationTree<State> & Mutations交集型別(intersection &)來確保函式內容同時符合MutationTree<State>和Mutations型別。
+MutationTree是vuex內建的通用型別，通用型別在定義宣告時不預先指定具體的型別，等到執行的時候才確認型別。在此處mutations以MutationTree<State> & Mutations交集型別(intersection &)來確保函式內容同時符合MutationTree<State>和Mutations型別(兩個型別都要符合不然會報錯)。
 
 ```javascript
 export const mutations: MutationTree<State> & Mutations = {
@@ -70,8 +70,47 @@ export const mutations: MutationTree<State> & Mutations = {
     state.loading = value
   }
 }
+  
 ```
 
+3. Actions: 一樣先以ActionTypes物件列舉管理所有action，在本範例只有一個GetTodoItems。Omit是Utility Type的一種，幫助我們從物件型別中剔除不想要的屬性。
+  
+```javascript
+export enum ActionTypes {
+  GetTodoItems = 'GET_ITEMS'
+}
+
+type ActionAugments = Omit<ActionContext<State, State>, 'commit'> & {
+  commit<K extends keyof Mutations>(
+    key: K,
+    payload: Parameters<Mutations[K]>[1]   
+  ):ReturnType<Mutations[K]>
+}
+```
+
+透過setTimeout延遲一秒鐘來模擬請求後端api。
+
+```javascript
+const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
+
+export const actions: ActionTree<State, State> & Actions = {
+  async [ActionTypes.GetTodoItems]({ commit }) {
+    commit(MutationType.SetLoading, true)
+
+    await sleep(1000)
+
+    commit(MutationType.SetLoading, false)
+    commit(MutationType.SetItems, [
+      {
+        id: 1,
+        text: 'Clean up the room',
+        completed: false
+      }
+    ])
+  }
+}
+```
+  
 ## Project setup
 ```
 npm install
