@@ -1,6 +1,6 @@
 import {
   createStore,
-  Store as VuexStroe,
+  Store as VuexStore,
   CommitOptions,
   DispatchOptions,
   createLogger
@@ -24,7 +24,7 @@ export function useStore() {
 }
 
 export type Store = Omit<
-  VuexStroe<State>,
+  VuexStore<State>,
   'getters' | 'commit' | 'dispatch'
 > & {
   commit<K extends keyof Mutations, P extends Parameters<Mutations[K]>[1]>(
