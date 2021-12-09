@@ -128,6 +128,35 @@ export const getters: GetterTree<State, State> & Getters = {
   }
 }
 ```
+5. 接著用useStore函式在index.ts裡面保存我們先前設定的型別。為了擴展Vuex的Store，把我們先前自訂的commit, dispatch 和 getters型別，commit會用Mutations作為Key，從函式的參數來獲得對應的負載(payload)的typings，而dispatch則是透過Acions作為Key，最後是Getters。
+
+```javascript
+export function useStore() {
+  return store as Store
+}  
+  
+export type Store = Omit<
+  VuexStore<State>,
+  'getters' | 'commit' | 'dispatch'
+> & {
+  commit<K extends keyof Mutations, P extends Parameters<Mutations[K]>[1]>(
+    key: K,
+    payload: P,
+    options?: CommitOptions
+  ): ReturnType<Mutations[K]>
+} & {
+  dispatch<K extends keyof Actions>(
+    key: K,
+    payload?: Parameters<Actions[K]>[1],
+    options?: DispatchOptions
+  ): ReturnType<Actions[K]>
+} & {
+  getters: {
+    [K in keyof Getters]: ReturnType<Getters[K]>
+  }
+}
+```  
+  
   
 ## Project setup
 ```
